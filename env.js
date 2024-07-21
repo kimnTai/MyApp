@@ -1,16 +1,16 @@
 /*
- * Env file to load and validate env variables
- * Be cautious; this file should not be imported into your source folder.
- * We split the env variables into two parts:
- * 1. Client variables: These variables are used in the client-side code (src folder).
- * 2. Build-time variables: These variables are used in the build process (app.config.ts file).
- * Import this file into the `app.config.ts` file to use environment variables during the build process. The client variables can then be passed to the client-side using the extra field in the `app.config.ts` file.
- * To access the client environment variables in your `src` folder, you can import them from `@env`. For example: `import Env from '@env'`.
+ * Env 文件用於加載和驗證環境變量
+ * 請謹慎操作；該文件不應導入到您的源文件夾中。
+ * 我們將環境變量分為兩部分：
+ * 1. 客戶端變量：這些變量在客戶端代碼 (src 文件夾) 中使用。
+ * 2. 構建時變量：這些變量在構建過程中使用 (app.config.ts 文件)。
+ * 將此文件導入到 `app.config.ts` 文件中以在構建過程中使用環境變量。然後可以使用 `app.config.ts` 文件中的 extra 字段將客戶端變量傳遞給客戶端。
+ * 要在 `src` 文件夾中訪問客戶端環境變量，可以從 `@env` 導入。例如：`import Env from '@env'`。
  */
 /**
- * 1st part: Import packages and Load your env variables
- * we use dotenv to load the correct variables from the .env file based on the APP_ENV variable (default is development)
- * APP_ENV is passed as an inline variable while executing the command, for example: APP_ENV=staging pnpm build:android
+ * 第一部分：導入包並加載您的環境變量
+ * 我們使用 dotenv 根據 APP_ENV 變量從 .env 文件加載正確的變量（默認為開發環境）
+ * APP_ENV 作為內聯變量在執行命令時傳遞，例如：APP_ENV=staging pnpm build:android
  */
 const z = require('zod');
 
@@ -24,14 +24,14 @@ require('dotenv').config({
 });
 
 /**
- * 2nd part: Define some static variables for the app
- * Such as: bundle id, package name, app name.
+ * 第二部分：定義一些應用的靜態變量
+ * 例如：bundle id、package name、app name。
  *
- * You can add them to the .env file but we think it's better to keep them here as as we use prefix to generate this values based on the APP_ENV
- * for example: if the APP_ENV is staging, the bundle id will be com.myapp.staging
+ * 您可以將它們添加到 .env 文件中，但我們認為將它們保存在這裡更好，因為我們使用前綴根據 APP_ENV 生成這些值
+ * 例如：如果 APP_ENV 是 staging，則 bundle id 將是 com.myapp.staging
  */
 
-// TODO: Replace these values with your own
+// TODO: 用你自己的值替換這些
 
 const BUNDLE_ID = 'com.myapp'; // ios bundle id
 const PACKAGE = 'com.myapp'; // android package name
@@ -41,8 +41,8 @@ const EAS_PROJECT_ID = 'c3e1075b-6fe7-4686-aa49-35b46a229044'; // eas project id
 const SCHEME = 'MyApp'; // app scheme
 
 /**
- * We declare a function withEnvSuffix that will add a suffix to the variable name based on the APP_ENV
- * Add a suffix to variable env based on APP_ENV
+ * 我們聲明了一個函數 withEnvSuffix，將根據 APP_ENV 添加後綴到變量名
+ * 為變量 env 添加後綴基於 APP_ENV
  * @param {string} name
  * @returns  {string}
  */
@@ -52,20 +52,20 @@ const withEnvSuffix = (name) => {
 };
 
 /**
- * 2nd part: Define your env variables schema
- * we use zod to define our env variables schema
+ * 第二部分：定義您的環境變量模式
+ * 我們使用 zod 定義我們的環境變量模式
  *
- * we split the env variables into two parts:
- *    1. client: These variables are used in the client-side code (`src` folder).
- *    2. buildTime: These variables are used in the build process (app.config.ts file). You can think of them as server-side variables.
+ * 我們將環境變量分為兩部分：
+ *    1. 客戶端：這些變量在客戶端代碼 (`src` 文件夾) 中使用。
+ *    2. 構建時：這些變量在構建過程中使用 (app.config.ts 文件)。您可以將它們視為服務器端變量。
  *
- * Main rules:
- *    1. If you need your variable on the client-side, you should add it to the client schema; otherwise, you should add it to the buildTime schema.
- *    2. Whenever you want to add a new variable, you should add it to the correct schema based on the previous rule, then you should add it to the corresponding object (_clientEnv or _buildTimeEnv).
+ * 主要規則：
+ *    1. 如果您需要在客戶端使用您的變量，您應該將它添加到客戶端模式中；否則，您應該將它添加到構建時模式中。
+ *    2. 每當您想添加新變量時，您應該根據上述規則將其添加到正確的模式中，然後將其添加到相應的對象 (_clientEnv 或 _buildTimeEnv) 中。
  *
- * Note: `z.string()` means that the variable exists and can be an empty string, but not `undefined`.
- * If you want to make the variable required, you should use `z.string().min(1)` instead.
- * Read more about zod here: https://zod.dev/?id=strings
+ * 注意：`z.string()` 意味著該變量存在並且可以是空字符串，但不能是 `undefined`。
+ * 如果您想讓該變量是必需的，您應該使用 `z.string().min(1)` 來代替。
+ * 在這裡閱讀更多關於 zod 的內容：https://zod.dev/?id=strings
  *
  */
 
@@ -77,7 +77,7 @@ const client = z.object({
   PACKAGE: z.string(),
   VERSION: z.string(),
 
-  // ADD YOUR CLIENT ENV VARS HERE
+  // 在這裡添加您的客戶端環境變量
   API_URL: z.string(),
   VAR_NUMBER: z.number(),
   VAR_BOOL: z.boolean(),
@@ -86,7 +86,7 @@ const client = z.object({
 const buildTime = z.object({
   EXPO_ACCOUNT_OWNER: z.string(),
   EAS_PROJECT_ID: z.string(),
-  // ADD YOUR BUILD TIME ENV VARS HERE
+  // 在這裡添加您的構建時環境變量
   SECRET_KEY: z.string(),
 });
 
@@ -101,7 +101,7 @@ const _clientEnv = {
   PACKAGE: withEnvSuffix(PACKAGE),
   VERSION: packageJSON.version,
 
-  // ADD YOUR ENV VARS HERE TOO
+  // 在這裡也添加您的環境變量
   API_URL: process.env.API_URL,
   VAR_NUMBER: Number(process.env.VAR_NUMBER),
   VAR_BOOL: process.env.VAR_BOOL === 'true',
@@ -113,15 +113,15 @@ const _clientEnv = {
 const _buildTimeEnv = {
   EXPO_ACCOUNT_OWNER,
   EAS_PROJECT_ID,
-  // ADD YOUR ENV VARS HERE TOO
+  // 在這裡也添加您的環境變量
   SECRET_KEY: process.env.SECRET_KEY,
 };
 
 /**
- * 3rd part: Merge and Validate your env variables
- * We use zod to validate our env variables based on the schema we defined above
- * If the validation fails we throw an error and log the error to the console with a detailed message about missed variables
- * If the validation passes we export the merged and parsed env variables to be used in the app.config.ts file as well as a ClientEnv object to be used in the client-side code
+ * 第三部分：合併並驗證您的環境變量
+ * 我們使用 zod 根據我們上面定義的模式驗證我們的環境變量
+ * 如果驗證失敗，我們會拋出錯誤並將錯誤日誌記錄到控制台，詳細說明缺少的變量
+ * 如果驗證通過，我們將導出合併和解析的環境變量以便在 app.config.ts 文件中使用，以及用於客戶端代碼的 ClientEnv 對象
  **/
 const _env = {
   ..._clientEnv,
@@ -133,15 +133,13 @@ const parsed = merged.safeParse(_env);
 
 if (parsed.success === false) {
   console.error(
-    '❌ Invalid environment variables:',
+    '❌ 無效的環境變量:',
     parsed.error.flatten().fieldErrors,
 
-    `\n❌ Missing variables in .env.${APP_ENV} file, Make sure all required variables are defined in the .env.${APP_ENV} file.`,
-    `\n💡 Tip: If you recently updated the .env.${APP_ENV} file and the error still persists, try restarting the server with the -cc flag to clear the cache.`
+    `\n❌ .env.${APP_ENV} 文件中缺少變量，確保所有必需的變量都在 .env.${APP_ENV} 文件中定義。`,
+    `\n💡 提示：如果您最近更新了 .env.${APP_ENV} 文件並且錯誤仍然存在，請嘗試使用 -cc 標誌重啟服務器以清除緩存。`
   );
-  throw new Error(
-    'Invalid environment variables, Check terminal for more details '
-  );
+  throw new Error('無效的環境變量，查看終端以獲取更多詳情');
 }
 
 const Env = parsed.data;
