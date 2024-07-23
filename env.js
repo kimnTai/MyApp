@@ -36,9 +36,10 @@ require('dotenv').config({
 const BUNDLE_ID = 'com.myapp'; // ios bundle id
 const PACKAGE = 'com.myapp'; // android package name
 const NAME = 'MyApp'; // app name
-const EXPO_ACCOUNT_OWNER = 'expo-owner'; // expo account owner
-const EAS_PROJECT_ID = 'c3e1075b-6fe7-4686-aa49-35b46a229044'; // eas project id
+const EXPO_ACCOUNT_OWNER = 'tingxian'; // expo account owner
+const EAS_PROJECT_ID = '66da18a4-e89c-4f7e-89e5-0092056976cb'; // eas project id
 const SCHEME = 'MyApp'; // app scheme
+const SLUG = 'my-expo-app';
 
 /**
  * 我們聲明了一個函數 withEnvSuffix，將根據 APP_ENV 添加後綴到變量名
@@ -88,6 +89,7 @@ const buildTime = z.object({
   EAS_PROJECT_ID: z.string(),
   // 在這裡添加您的構建時環境變量
   SECRET_KEY: z.string(),
+  SLUG: z.string(),
 });
 
 /**
@@ -115,6 +117,7 @@ const _buildTimeEnv = {
   EAS_PROJECT_ID,
   // 在這裡也添加您的環境變量
   SECRET_KEY: process.env.SECRET_KEY,
+  SLUG,
 };
 
 /**
