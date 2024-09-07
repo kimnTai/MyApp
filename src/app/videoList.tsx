@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { ScrollView } from '@/ui';
 import { Video } from 'expo-av';
+import { ScrollView } from '@/ui';
 
 const urlList = [
   'https://appbet222.com/file/mujun-certificate/202409/71132d72db1b4ae6817916018d581994.mp4',
