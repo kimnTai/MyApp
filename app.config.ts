@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import type { ConfigContext, ExpoConfig } from '@expo/config';
 
 import { ClientEnv, Env } from './env';
@@ -69,7 +68,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             color: 'white',
           },
           {
-            text: Env.VERSION.toString(),
+            text: Env.VERSION,
             type: 'ribbon',
             color: 'white',
           },
