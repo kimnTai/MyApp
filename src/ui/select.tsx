@@ -25,9 +25,9 @@ import { Text } from './text';
 const selectTv = tv({
   slots: {
     container: 'mb-4',
-    label: 'text-grey-100 dark:text-neutral-100 text-lg mb-1',
+    label: 'text-grey-100 mb-1 text-lg dark:text-neutral-100',
     input:
-      'mt-0 flex-row items-center justify-center border-[0.5px] border-grey-50 px-3 py-3  rounded-xl dark:bg-neutral-800 dark:border-neutral-500',
+      'border-grey-50 mt-0 flex-row items-center justify-center rounded-xl border-[0.5px] p-3  dark:border-neutral-500 dark:bg-neutral-800',
     inputValue: 'dark:text-neutral-100',
   },
 
@@ -58,16 +58,16 @@ const selectTv = tv({
 
 const List = Platform.OS === 'web' ? FlashList : BottomSheetFlatList;
 
-export type Option = { label: string; value: string | number };
+export type OptionType = { label: string; value: string | number };
 
 type OptionsProps = {
-  options: Option[];
-  onSelect: (option: Option) => void;
+  options: OptionType[];
+  onSelect: (option: OptionType) => void;
   value?: string | number;
   testID?: string;
 };
 
-function keyExtractor(item: Option) {
+function keyExtractor(item: OptionType) {
   return `select-item-${item.value}`;
 }
 
@@ -79,7 +79,7 @@ export const Options = React.forwardRef<BottomSheetModal, OptionsProps>(
     const isDark = colorScheme === 'dark';
 
     const renderSelectItem = React.useCallback(
-      ({ item }: { item: Option }) => (
+      ({ item }: { item: OptionType }) => (
         <Option
           key={`select-item-${item.value}`}
           label={item.label}
@@ -88,7 +88,7 @@ export const Options = React.forwardRef<BottomSheetModal, OptionsProps>(
           testID={testID ? `${testID}-item-${item.value}` : undefined}
         />
       ),
-      [onSelect, value, testID]
+      [onSelect, value, testID],
     );
 
     return (
@@ -109,7 +109,7 @@ export const Options = React.forwardRef<BottomSheetModal, OptionsProps>(
         />
       </Modal>
     );
-  }
+  },
 );
 
 const Option = React.memo(
@@ -123,14 +123,14 @@ const Option = React.memo(
   }) => {
     return (
       <Pressable
-        className="flex-row items-center border-b-[1px] border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-800"
+        className="flex-row items-center border-b border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-800"
         {...props}
       >
         <Text className="flex-1 dark:text-neutral-100 ">{label}</Text>
         {selected && <Check />}
       </Pressable>
     );
-  }
+  },
 );
 
 export interface SelectProps {
@@ -138,7 +138,7 @@ export interface SelectProps {
   label?: string;
   disabled?: boolean;
   error?: string;
-  options?: Option[];
+  options?: OptionType[];
   onSelect?: (value: string | number) => void;
   placeholder?: string;
   testID?: string;
@@ -161,11 +161,11 @@ export const Select = (props: SelectProps) => {
   const modal = useModal();
 
   const onSelectOption = React.useCallback(
-    (option: Option) => {
+    (option: OptionType) => {
       onSelect?.(option.value);
       modal.dismiss();
     },
-    [modal, onSelect]
+    [modal, onSelect],
   );
 
   const styles = React.useMemo(
@@ -174,15 +174,15 @@ export const Select = (props: SelectProps) => {
         error: Boolean(error),
         disabled,
       }),
-    [error, disabled]
+    [error, disabled],
   );
 
   const textValue = React.useMemo(
     () =>
       value !== undefined
-        ? options?.filter((t) => t.value === value)?.[0]?.label ?? placeholder
+        ? (options?.filter((t) => t.value === value)?.[0]?.label ?? placeholder)
         : placeholder,
-    [value, options, placeholder]
+    [value, options, placeholder],
   );
 
   return (
@@ -228,7 +228,7 @@ export const Select = (props: SelectProps) => {
 
 // only used with react-hook-form
 export function ControlledSelect<T extends FieldValues>(
-  props: ControlledSelectProps<T>
+  props: ControlledSelectProps<T>,
 ) {
   const { name, control, rules, onSelect: onNSelect, ...selectProps } = props;
 
@@ -238,7 +238,7 @@ export function ControlledSelect<T extends FieldValues>(
       field.onChange(value);
       onNSelect?.(value);
     },
-    [field, onNSelect]
+    [field, onNSelect],
   );
   return (
     <Select

@@ -70,18 +70,18 @@ export const Modal = React.forwardRef(
       detached = false,
       ...props
     }: ModalProps,
-    ref: ModalRef
+    ref: ModalRef,
   ) => {
     const detachedProps = React.useMemo(
       () => getDetachedProps(detached),
-      [detached]
+      [detached],
     );
     const modal = useModal();
     const snapPoints = React.useMemo(() => _snapPoints, [_snapPoints]);
 
     React.useImperativeHandle(
       ref,
-      () => (modal.ref.current as BottomSheetModal) || null
+      () => (modal.ref.current as BottomSheetModal) || null,
     );
 
     const renderHandleComponent = React.useCallback(
@@ -91,7 +91,7 @@ export const Modal = React.forwardRef(
           <ModalHeader title={title} dismiss={modal.dismiss} />
         </>
       ),
-      [title, modal.dismiss]
+      [title, modal.dismiss],
     );
 
     return (
@@ -105,7 +105,7 @@ export const Modal = React.forwardRef(
         handleComponent={renderHandleComponent}
       />
     );
-  }
+  },
 );
 
 /**
@@ -121,7 +121,6 @@ const CustomBackdrop = ({ style }: BottomSheetBackdropProps) => {
       onPress={() => close()}
       entering={FadeIn.duration(50)}
       exiting={FadeOut.duration(20)}
-      // eslint-disable-next-line react-native/no-inline-styles
       style={[style, { backgroundColor: 'rgba(0, 0, 0, 0.4)' }]}
     />
   );

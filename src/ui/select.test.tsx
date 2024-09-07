@@ -3,14 +3,14 @@
 import React from 'react';
 
 import { cleanup, fireEvent, render, screen } from '@/core/test-utils';
-import type { Option } from '@/ui';
+import type { OptionType } from '@/ui';
 
 import { Select } from './select';
 
 afterEach(cleanup);
 
 describe('Select component ', () => {
-  const options: Option[] = [
+  const options: OptionType[] = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' },
@@ -23,7 +23,7 @@ describe('Select component ', () => {
         options={options}
         onSelect={onSelect}
         testID="select"
-      />
+      />,
     );
     expect(screen.getByTestId('select-trigger')).toBeOnTheScreen();
     expect(screen.getByTestId('select-label')).toBeOnTheScreen();
@@ -37,7 +37,7 @@ describe('Select component ', () => {
         options={options}
         onSelect={onSelect}
         testID="select"
-      />
+      />,
     );
     expect(screen.getByTestId('select-trigger')).toBeOnTheScreen();
     expect(screen.getByTestId('select-label')).toBeOnTheScreen();
@@ -53,12 +53,12 @@ describe('Select component ', () => {
         onSelect={onSelect}
         testID="select"
         error="Please select an option"
-      />
+      />,
     );
     expect(screen.getByTestId('select-trigger')).toBeOnTheScreen();
     expect(screen.getByTestId('select-error')).toBeOnTheScreen();
     expect(screen.getByTestId('select-error')).toHaveTextContent(
-      'Please select an option'
+      'Please select an option',
     );
   });
 
@@ -69,7 +69,7 @@ describe('Select component ', () => {
         options={options}
         testID="select"
         placeholder="Select an option"
-      />
+      />,
     );
 
     const selectTrigger = screen.getByTestId('select-trigger');

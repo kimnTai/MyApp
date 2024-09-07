@@ -6,7 +6,7 @@ import type {
   RegisterOptions,
 } from 'react-hook-form';
 import { useController } from 'react-hook-form';
-import type { TextInput, TextInputProps } from 'react-native';
+import type { TextInputProps } from 'react-native';
 import { I18nManager, StyleSheet, View } from 'react-native';
 import { TextInput as NTextInput } from 'react-native';
 import { tv } from 'tailwind-variants';
@@ -53,23 +53,25 @@ export interface NInputProps extends TextInputProps {
   error?: string;
 }
 
-type TRule = Omit<
-  RegisterOptions,
-  'valueAsNumber' | 'valueAsDate' | 'setValueAs'
->;
+type TRule<T extends FieldValues> =
+  | Omit<
+      RegisterOptions<T>,
+      'disabled' | 'valueAsNumber' | 'valueAsDate' | 'setValueAs'
+    >
+  | undefined;
 
-export type RuleType<T> = { [name in keyof T]: TRule };
+export type RuleType<T extends FieldValues> = { [name in keyof T]: TRule<T> };
 export type InputControllerType<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
-  rules?: TRule;
+  rules?: RuleType<T>;
 };
 
 interface ControlledInputProps<T extends FieldValues>
   extends NInputProps,
     InputControllerType<T> {}
 
-export const Input = React.forwardRef<TextInput, NInputProps>((props, ref) => {
+export const Input = React.forwardRef<NTextInput, NInputProps>((props, ref) => {
   const { label, error, testID, ...inputProps } = props;
   const [isFocussed, setIsFocussed] = React.useState(false);
   const onBlur = React.useCallback(() => setIsFocussed(false), []);
@@ -82,7 +84,7 @@ export const Input = React.forwardRef<TextInput, NInputProps>((props, ref) => {
         focused: isFocussed,
         disabled: Boolean(props.disabled),
       }),
-    [error, isFocussed, props.disabled]
+    [error, isFocussed, props.disabled],
   );
 
   return (
@@ -123,7 +125,7 @@ export const Input = React.forwardRef<TextInput, NInputProps>((props, ref) => {
 
 // only used with react-hook-form
 export function ControlledInput<T extends FieldValues>(
-  props: ControlledInputProps<T>
+  props: ControlledInputProps<T>,
 ) {
   const { name, control, rules, ...inputProps } = props;
 
