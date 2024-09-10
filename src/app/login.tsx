@@ -5,6 +5,7 @@ import type { LoginFormProps } from '@/components/login-form';
 import { LoginForm } from '@/components/login-form';
 import { useAuth } from '@/core';
 import { FocusAwareStatusBar } from '@/ui';
+import VideoList from './videoList';
 
 export default function Login() {
   const router = useRouter();
@@ -17,8 +18,7 @@ export default function Login() {
   };
   return (
     <>
-      <FocusAwareStatusBar />
-      <LoginForm onSubmit={onSubmit} />
+      <VideoList />
     </>
   );
 }
