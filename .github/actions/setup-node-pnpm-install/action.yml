@@ -1,20 +1,20 @@
-# 🔗 链接:
-# 源文件: https://github.com/obytes/react-native-template-obytes/blob/master/.github/actions/setup-node-pnpm-install/action.yml
-# 组合操作文档: https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+# 🔗 連結：
+# 來源檔案：https://github.com/obytes/react-native-template-obytes/blob/master/.github/actions/setup-node-pnpm-install/action.yml
+# Composite actions 文件：https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
 
-# ✍️ 描述:
-# 这是一个组合操作，这意味着它可以在其他操作中使用。
-# 它几乎在所有工作流中都使用，用于设置环境和安装依赖项。
-# 在这里更新包管理器或 Node 版本将在所有工作流中反映出来。
+# ✍️ 說明：
+# 這是一個 composite action，代表它可以在其他 actions 中重複使用。
+# 幾乎所有 workflow 都會使用它來設定環境並安裝相依套件。
+# 在這裡更新套件管理工具或 Node 版本，會套用到所有 workflow。
 
-# 👀 示例用法:
+# 👀 使用範例：
 #       - name : 📦 Setup Node + PNPM + install deps
 #         uses: ./.github/actions/setup-node-pnpm-install
 
 name: 'Setup  Node + PNPM + Install Dependencies'
 description: 'Setup  Node + PNPM + Install Dependencies'
 runs:
-  using: 'composite'
+  using: composite
   steps:
     - uses: pnpm/action-setup@v4
       with:
@@ -22,7 +22,7 @@ runs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-        cache: 'pnpm'
+        cache: pnpm
 
     - name: 📦 Install Project Dependencies
       run: pnpm install --frozen-lockfile

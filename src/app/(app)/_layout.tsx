@@ -1,28 +1,18 @@
-/* eslint-disable react/no-unstable-nested-components */
-import { Link, Redirect, SplashScreen, Tabs } from 'expo-router';
-import React, { useCallback, useEffect } from 'react';
+import { Link, Redirect, Tabs } from 'expo-router';
+import * as React from 'react';
 
-import { useAuth, useIsFirstTime } from '@/core';
-import { Pressable, Text } from '@/ui';
+import { Pressable, Text } from '@/components/ui';
 import {
   Feed as FeedIcon,
   Settings as SettingsIcon,
   Style as StyleIcon,
-} from '@/ui/icons';
+} from '@/components/ui/icons';
+import { useAuthStore as useAuth } from '@/features/auth/use-auth-store';
+import { useIsFirstTime } from '@/lib/hooks/use-is-first-time';
 
 export default function TabLayout() {
   const status = useAuth.use.status();
   const [isFirstTime] = useIsFirstTime();
-  const hideSplash = useCallback(async () => {
-    await SplashScreen.hideAsync();
-  }, []);
-  useEffect(() => {
-    if (status !== 'idle') {
-      setTimeout(() => {
-        hideSplash();
-      }, 1000);
-    }
-  }, [hideSplash, status]);
 
   if (isFirstTime) {
     return <Redirect href="/onboarding" />;
@@ -38,7 +28,7 @@ export default function TabLayout() {
           title: 'Feed',
           tabBarIcon: ({ color }) => <FeedIcon color={color} />,
           headerRight: () => <CreateNewPostLink />,
-          tabBarTestID: 'feed-tab',
+          tabBarButtonTestID: 'feed-tab',
         }}
       />
 
@@ -48,7 +38,7 @@ export default function TabLayout() {
           title: 'Style',
           headerShown: false,
           tabBarIcon: ({ color }) => <StyleIcon color={color} />,
-          tabBarTestID: 'style-tab',
+          tabBarButtonTestID: 'style-tab',
         }}
       />
       <Tabs.Screen
@@ -57,14 +47,14 @@ export default function TabLayout() {
           title: 'Settings',
           headerShown: false,
           tabBarIcon: ({ color }) => <SettingsIcon color={color} />,
-          tabBarTestID: 'settings-tab',
+          tabBarButtonTestID: 'settings-tab',
         }}
       />
     </Tabs>
   );
 }
 
-const CreateNewPostLink = () => {
+function CreateNewPostLink() {
   return (
     <Link href="/feed/add-post" asChild>
       <Pressable>
@@ -72,4 +62,4 @@ const CreateNewPostLink = () => {
       </Pressable>
     </Link>
   );
-};
+}

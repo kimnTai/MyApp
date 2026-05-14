@@ -1,14 +1,14 @@
-# 🔗 Links:
-# Source file: https://github.com/obytes/react-native-template-obytes/blob/master/.github/workflows/test.yml
+# 🔗 連結：
+# 來源檔案：https://github.com/obytes/react-native-template-obytes/blob/master/.github/workflows/test.yml
 
-# ✍️ Description:
-# This action is used to run unit tests
-# Runs on pull requests and pushes to  the main/master branches
-# Based on the event type:
-#   - If it's a pull request, it will run the tests and post a comment with coverage details.
-#   - If it's a push to main/master, it will run the tests and add the check to the commit.
+# ✍️ 說明：
+# 這個 action 用來執行單元測試。
+# 會在 pull request 與推送到 main/master 分支時執行。
+# 依據事件類型：
+#   - 如果是 pull request，會執行測試並留言提供 coverage 詳細資訊。
+#   - 如果是推送到 main/master，會執行測試並將檢查結果加入 commit。
 
-# 🚨 GITHUB SECRETS REQUIRED: NONE
+# 🚨 必要的 GITHUB SECRETS：無
 
 name: Tests (jest)
 
@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: 📦 Checkout project repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -40,7 +40,7 @@ jobs:
         if: (success() || failure()) && github.event_name == 'pull_request'
         with:
           coverage-summary-path: ./coverage/coverage-summary.json
-          summary-title: '💯 Test Coverage'
+          summary-title: 💯 Test Coverage
           badge-title: Coverage
           create-new-comment: false
           junitxml-title: 😎 Tests Results

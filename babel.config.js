@@ -2,8 +2,7 @@ module.exports = function (api) {
   api.cache(true);
   return {
     presets: [
-      ['babel-preset-expo', { jsxImportSource: 'nativewind' }],
-      'nativewind/babel',
+      'babel-preset-expo',
     ],
     plugins: [
       [
@@ -12,7 +11,7 @@ module.exports = function (api) {
           root: ['./'],
           alias: {
             '@': './src',
-            '@env': './src/core/env.js',
+            '@env': './src/lib/env.js',
           },
           extensions: [
             '.ios.ts',

@@ -1,23 +1,23 @@
-# 🔗 Links:
-# Source file: https://github.com/obytes/react-native-template-obytes/blob/master/.github/workflows/lint-ts.yml
-# Starter releasing process: https://starter.obytes.com/ci-cd/app-releasing-process/
+# 🔗 連結：
+# 來源檔案：https://github.com/obytes/react-native-template-obytes/blob/master/.github/workflows/lint-ts.yml
+# Starter 發版流程：https://starter.obytes.com/ci-cd/app-releasing-process/
 
-# ✍️ Description:
-# This workflow is used to create a new version of the app and push a new tag to the repo.
-# As this workflow will push code to the repo, we set up GitHub Bot as a Git user.
-# This Workflow need to be triggered manually from the Actions tab in the repo.
-#         1. Choose your release type (patch, minor, major)
-#         2. The workflow will run the np-release script which runs the following steps:
-#             - Bump the version in package.json based on the release type using np
-#             - Run the prebuild of the app to align the package.json version with the native code
-#             - Create a new tag with the new version
-#             - Push the new tag to the repo
+# ✍️ 說明：
+# 這個 workflow 用來建立 app 的新版本，並將新的 tag 推送到 repo。
+# 因為這個 workflow 會將程式碼推送到 repo，所以會將 GitHub Bot 設定為 Git 使用者。
+# 這個 workflow 需要從 repo 的 Actions 分頁手動觸發。
+#         1. 選擇 release type（patch、minor、major）
+#         2. workflow 會執行 np-release script，該 script 會執行以下步驟：
+#             - 使用 np 依據 release type 更新 package.json 中的版本
+#             - 執行 app prebuild，讓 package.json 版本與 native code 對齊
+#             - 使用新版本建立新的 tag
+#             - 將新的 tag 推送到 repo
 #
 
-# 🚨 GITHUB SECRETS REQUIRED:
-#         - GH_TOKEN: A GitHub token with write repo access.
-#           You can generate one from here: https://docs.github.com/en/enterprise-server@3.6/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
-#           make sure to add it to the repo secrets with the name GH_TOKEN
+# 🚨 必要的 GITHUB SECRETS：
+#         - GH_TOKEN：具有 repo 寫入權限的 GitHub token。
+#           可從這裡產生：https://docs.github.com/en/enterprise-server@3.6/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+#           請確認已用 GH_TOKEN 這個名稱加入 repo secrets
 
 name: New App Version
 
@@ -28,7 +28,7 @@ on:
         type: choice
         description: 'Release type (one of): patch, minor, major'
         required: true
-        default: 'patch'
+        default: patch
         options:
           - patch
           - minor
@@ -47,7 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
       - name: 📦 Checkout project repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GH_TOKEN }}

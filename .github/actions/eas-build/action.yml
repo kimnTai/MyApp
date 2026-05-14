@@ -1,22 +1,22 @@
-# 🔗 Links:
-# Source file: https://github.com/obytes/react-native-template-obytes/blob/master/.github/actions/eas-build/action.yml
-# EAS Build docs: https://docs.expo.dev/eas-update/github-actions/
+# 🔗 連結：
+# 來源檔案：https://github.com/obytes/react-native-template-obytes/blob/master/.github/actions/eas-build/action.yml
+# EAS Build 文件：https://docs.expo.dev/eas-update/github-actions/
 
-# ✍️ Description:
-# This is a composite action, which means it can be used in other actions.
-# This action is used to trigger an EAS Build for a specific environment (development, staging, production).
-# This action accepts those inputs:
-#        `APP_ENV`, which is used to generate an APK for a specific environment (development, staging, production). We use staging by default.
-#        `AUTO_SUBMIT`, false by default, set to true if you want to automatically submit your build to stores.
-#        `EXPO_TOKEN`, required, access token for your Expo account. https://expo.dev/settings/access-tokens
-#        `VERSION`, required, version of the app to build. used as the build message.
-#        `ANDROID`, true by default, set to true if you don't want to trigger build for Android.
-#        `IOS`, false by default, set to true if you  want to trigger build for IOS.
+# ✍️ 說明：
+# 這是一個 composite action，代表它可以在其他 actions 中重複使用。
+# 這個 action 用來針對指定環境（development、staging、production）觸發 EAS Build。
+# 這個 action 接受以下輸入：
+#        `APP_ENV`：用來針對指定環境（development、staging、production）產生 APK。預設使用 staging。
+#        `AUTO_SUBMIT`：預設為 false；若要自動提交 build 到商店，請設為 true。
+#        `EXPO_TOKEN`：必填，Expo 帳號的 access token。https://expo.dev/settings/access-tokens
+#        `VERSION`：必填，要建置的 app 版本，會用作 build message。
+#        `ANDROID`：預設為 true；若不想觸發 Android build，請設為 false。
+#        `IOS`：預設為 false；若要觸發 iOS build，請設為 true。
 
-# Before triggering the build, we run a pre-build script to generate the necessary native folders based on the APP_ENV.
-# Based on the ANDROID and IOS inputs, we trigger the build for the corresponding platform with the corresponding flags.
+# 觸發 build 前，會先執行 pre-build script，依據 APP_ENV 產生必要的 native 資料夾。
+# 依據 ANDROID 與 IOS 輸入，使用對應 flags 觸發對應平台的 build。
 
-# 👀 Example usage:
+# 👀 使用範例：
 #      - name: ⏱️ EAS Build
 #        uses: ./.github/actions/eas-build
 #        with:
@@ -31,8 +31,8 @@ inputs:
   APP_ENV:
     description: 'APP_ENV (one of): development, staging, production'
     required: true
-    default: 'staging'
-  AUTO_SUBMIT: ## TODO: we need to handle this too
+    default: staging
+  AUTO_SUBMIT: # # TODO: 這個也需要處理
     description: 'AUTO_SUBMIT (one of): true, false'
     required: true
     default: 'false'
@@ -41,20 +41,20 @@ inputs:
     required: true
     default: 'true'
   VERSION:
-    description: 'VERSION'
+    description: VERSION
     required: true
-    default: '0.0.0'
+    default: 0.0.0
   IOS:
     description: 'run for IOS (one of): true, false'
     required: true
     default: 'false'
   EXPO_TOKEN:
-    description: 'EXPO_TOKEN'
+    description: EXPO_TOKEN
     required: true
     default: 'false'
 
 runs:
-  using: 'composite'
+  using: composite
   steps:
     - name: 💯 Check for EXPO_TOKEN
       run: |

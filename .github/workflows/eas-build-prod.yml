@@ -1,15 +1,15 @@
-# 🔗 Links:
-# Source file: https://github.com/obytes/react-native-template-obytes/blob/master/.github/workflows/eas-build-prod.yml
-# Starter releasing process: https://starter.obytes.com/ci-cd/app-releasing-process/
+# 🔗 連結：
+# 來源檔案：https://github.com/obytes/react-native-template-obytes/blob/master/.github/workflows/eas-build-prod.yml
+# Starter 發版流程：https://starter.obytes.com/ci-cd/app-releasing-process/
 
-# ✍️ Description:
-# This workflow is used to trigger a build on EAS for Prod environment.
-# Can be triggered manually from the actions tab.
-# This workflow will use ./actions/eas-build action to trigger the build on EAS with production env.
+# ✍️ 說明：
+# 這個 workflow 用來觸發 Prod 環境的 EAS build。
+# 可以從 Actions 分頁手動觸發。
+# 這個 workflow 會使用 ./actions/eas-build action，以 production env 觸發 EAS build。
 
-# 🚨 GITHUB SECRETS REQUIRED:
-#         - EXPO_TOKEN: Expo token to authenticate with EAS
-#         - You can get it from https://expo.dev/settings/access-tokens
+# 🚨 必要的 GITHUB SECRETS：
+#         - EXPO_TOKEN：用來向 EAS 驗證身分的 Expo token
+#         - 可從 https://expo.dev/settings/access-tokens 取得
 
 name: EAS Production Build (Android & IOS) (EAS)
 
@@ -29,7 +29,7 @@ jobs:
           fi
 
       - name: 📦 Checkout project repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 

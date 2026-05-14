@@ -1,23 +1,23 @@
 ## What does this do?
 
 <!---
-_Describe what your changes **do**; did you add a $COOL_FEATURE? Write about it here._
+_描述你的變更**做了什麼**；你是否新增了 $COOL_FEATURE？請在這裡說明。_
 -->
 
 ## Why did you do this?
 
 <!---
-_**Why** did you make these changes? This is your opportunity to provide the rationale that drove the design of your solution._
+_你**為什麼**要做這些變更？請在這裡說明推動此解法設計的原因。_
 -->
 
 ## Who/what does this impact?
 
 <!---
-_Does your code affect something downstream? Are there side effects people should know about? Tag any developers that should be kept abreast of this change._
+_你的程式碼是否會影響下游項目？是否有需要讓大家知道的副作用？請標註需要同步此變更的開發者。_
 -->
 
 ## How did you test this?
 
 <!---
-_How did you test your change? Document it here._
+_你如何測試這項變更？請在這裡記錄。_
 -->

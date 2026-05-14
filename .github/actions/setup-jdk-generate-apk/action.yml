@@ -1,15 +1,15 @@
-# 🔗 Links:
-# Source file: https://github.com/obytes/react-native-template-obytes/blob/master/.github/actions/setup-jdk-generate-apk/action.yml
-# Composite actions docs: https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+# 🔗 連結：
+# 來源檔案：https://github.com/obytes/react-native-template-obytes/blob/master/.github/actions/setup-jdk-generate-apk/action.yml
+# Composite actions 文件：https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
 
-# ✍️ Description:
-# This is a composite action, which means it can be used in other actions.
-# This action is used to set up the JDK environment and generate an Android APK for testing.
-# This action accepts one input: `APP_ENV`, which is used to generate an APK for a specific environment (development, staging, production). We use staging by default.
-# Before generating the APK, we run a pre-build script to generate the necessary native folders based on the APP_ENV.
-# On success, the APK is generated at `./android/app/build/outputs/apk/release/app-release.apk`.
+# ✍️ 說明：
+# 這是一個 composite action，代表它可以在其他 actions 中重複使用。
+# 這個 action 用來設定 JDK 環境，並產生測試用的 Android APK。
+# 這個 action 接受一個輸入：`APP_ENV`，用來針對指定環境（development、staging、production）產生 APK。預設使用 staging。
+# 產生 APK 前，會先執行 pre-build script，依據 APP_ENV 產生必要的 native 資料夾。
+# 成功後，APK 會產生在 `./android/app/build/outputs/apk/release/app-release.apk`。
 
-# 👀 Example usage:
+# 👀 使用範例：
 #       - name : 📦 Set Up JDK + Generate Test APK
 #         uses: ./.github/actions/setup-jdk-generate-apk
 #         with:
@@ -21,16 +21,16 @@ inputs:
   APP_ENV:
     description: 'APP_ENV (one of): development, staging, production'
     required: true
-    default: 'staging'
+    default: staging
 
 runs:
-  using: 'composite'
+  using: composite
   steps:
     - name: Set Up JDK
       uses: actions/setup-java@v3
       with:
-        distribution: 'zulu' # See 'Supported distributions' for available options
-        java-version: '11'
+        distribution: zulu # 可用選項請參考「Supported distributions」
+        java-version: '17'
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
 

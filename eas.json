@@ -1,33 +1,28 @@
 {
   "cli": {
-    "version": ">= 0.57.0"
+    "appVersionSource": "remote"
   },
   "build": {
     "production": {
       "channel": "production",
+      "autoIncrement": true,
       "distribution": "store",
-      "pnpm": "8.15.4",
+      "environment": "production",
       "ios": {
         "image": "latest"
       },
       "android": {
-        "buildType": "apk",
+        "buildType": "app-bundle",
         "image": "latest"
       },
       "env": {
-        "EXPO_NO_DOTENV": "1",
-        "APP_ENV": "production",
-        "FLIPPER_DISABLE": "1"
-      },
-      "prebuildCommand": "prebuild --skip-dependency-update react",
-      "cache": {
-        "key": "eas-1"
+        "EXPO_PUBLIC_APP_ENV": "production"
       }
     },
-    "staging": {
-      "channel": "staging",
-      "distribution": "internal",
-      "pnpm": "8.15.4",
+    "preview": {
+      "channel": "preview",
+      "autoIncrement": true,
+      "distribution": "store",
       "ios": {
         "image": "latest"
       },
@@ -35,59 +30,41 @@
         "buildType": "apk",
         "image": "latest"
       },
+      "environment": "preview",
       "env": {
-        "APP_ENV": "staging",
-        "EXPO_NO_DOTENV": "1",
-        "FLIPPER_DISABLE": "1"
-      },
-
-      "prebuildCommand": "prebuild --skip-dependency-update react",
-      "cache": {
-        "key": "eas-1"
+        "EXPO_PUBLIC_APP_ENV": "preview"
       }
     },
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "pnpm": "8.15.4",
+      "environment": "development",
       "ios": {
         "image": "latest"
       },
       "android": {
-        "image": "latest",
-        "buildType": "apk"
+        "image": "latest"
       },
       "env": {
-        "APP_ENV": "development",
-        "EXPO_NO_DOTENV": "1"
-      },
-
-      "prebuildCommand": "prebuild --skip-dependency-update react",
-      "cache": {
-        "key": "eas-1"
+        "EXPO_PUBLIC_APP_ENV": "development"
       }
     },
     "simulator": {
+      "environment": "development",
       "ios": {
         "simulator": true,
         "image": "latest"
       },
       "android": {
-        "image": "latest",
-        "buildType": "apk"
+        "image": "latest"
       },
       "env": {
-        "APP_ENV": "development",
-        "EXPO_NO_DOTENV": "1"
-      },
-      "pnpm": "8.15.4",
-      "prebuildCommand": "prebuild --skip-dependency-update react",
-      "cache": {
-        "key": "eas-1"
+        "EXPO_PUBLIC_APP_ENV": "development"
       }
     }
   },
   "submit": {
+    "preview": {},
     "production": {}
   }
 }

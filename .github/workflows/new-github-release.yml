@@ -1,12 +1,12 @@
-# 🔗 Links:
-# Source file: https://github.com/obytes/react-native-template-obytes/blob/master/.github/workflows/new-github-release.yml
-# Starter releasing process: https://starter.obytes.com/ci-cd/app-releasing-process/
+# 🔗 連結：
+# 來源檔案：https://github.com/obytes/react-native-template-obytes/blob/master/.github/workflows/new-github-release.yml
+# Starter 發版流程：https://starter.obytes.com/ci-cd/app-releasing-process/
 
-# ✍️ Description:
-# This workflow will be triggered automatically after the new app version workflow has been executed successfully.
-# It will create a new GitHub release with the new app version and the release notes.
+# ✍️ 說明：
+# new app version workflow 成功執行後，會自動觸發這個 workflow。
+# 它會使用新的 app 版本與 release notes 建立新的 GitHub release。
 
-# 🚨 GITHUB SECRETS REQUIRED: None
+# 🚨 必要的 GITHUB SECRETS：無
 
 name: New GitHub Release
 
@@ -23,7 +23,7 @@ jobs:
       contents: write
     steps:
       - name: 📦 Checkout project repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
